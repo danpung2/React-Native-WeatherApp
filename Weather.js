@@ -1,122 +1,126 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar, Alert } from "react-native";
+import { View, Text, StyleSheet, StatusBar, SafeAreaView } from "react-native";
 import propTypes from "prop-types";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Linking } from "react-native";
-const goTo = "Go to listen";
+import YouTube from 'react-native-youtube';
+
+const goTo = "Go to listen >> ";
+const recommend = "Condition recommends this music: \n";
+const sy = " - Soyeon\n"
 
 const weatherOptions = {
     Drizzle: {
         iconName: "weather-hail",
         gradient: ["#c2e59c", "#64b3f4"],
         title: "Drizzle",
-        subtitle: "Let's listen 'Is this bad b****** number?' whose SoYeon",
+        subtitle: "Is this bad b****** number?",
         songId: "https://www.melon.com/song/detail.htm?songId=33650733"
     },
     Thunderstorm: {
         iconName: "weather-lightning-rainy",
         gradient: ["#0f0c29", "#2C5364"],
         title: "Thunderstorm",
-        subtitle: "Let's listen 'Psycho' whose SoYeon",
+        subtitle: "Psycho",
         songId: "https://www.melon.com/song/detail.htm?songId=33650732"
     },
     Rain: {
         iconName: "weather-rainy",
         gradient: ["#0F2027", "#2C5364"],
         title: "Rain",
-        subtitle: "Let's listen 'Weather' whose SoYeon",
+        subtitle: "Weather",
         songId: "https://www.melon.com/song/detail.htm?songId=33650730"
     },
     Snow: {
         iconName: "weather-snowy",
         gradient: ["#D3CCE3", "#E9E4F0"],
         title: "Snow",
-        subtitle: "Let's listen 'Weather' whose SoYeon",
+        subtitle: "Weather",
         songId: "https://www.melon.com/song/detail.htm?songId=33650730"
     },
     Mist: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Quit' whose SoYeon",
+        subtitle: "Quit",
         songId: "https://www.melon.com/song/detail.htm?songId=33650731"
     },
     Smoke: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Is this bad b****** number?' whose SoYeon",
+        subtitle: "Is this bad b****** number?",
         songId: "https://www.melon.com/song/detail.htm?songId=33650733"
     },
     Haze: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Quit' whose SoYeon",
+        subtitle: "Quit",
         songId: "https://www.melon.com/song/detail.htm?songId=33650731"
     },
     Dust: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Is this bad b****** number?' whose SoYeon",
+        subtitle: "Is this bad b****** number?",
         songId: "https://www.melon.com/song/detail.htm?songId=33650733"
     },
     Fog: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Quit' whose SoYeon",
+        subtitle: "Quit",
         songId: "https://www.melon.com/song/detail.htm?songId=33650731"
     },
     Sand: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Psycho' whose SoYeon",
+        subtitle: "Psycho",
         songId: "https://www.melon.com/song/detail.htm?songId=33650732"
     },
     Dust: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Is this bad b****** number?' whose SoYeon",
+        subtitle: "Is this bad b****** number?",
         songId: "https://www.melon.com/song/detail.htm?songId=33650733"
     },
     Ash: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Quit' whose SoYeon",
+        subtitle: "Quit",
         songId: "https://www.melon.com/song/detail.htm?songId=33650731"
     },
     Squall: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Psycho' whose SoYeon",
+        subtitle: "Psycho",
         songId: "https://www.melon.com/song/detail.htm?songId=33650732"
     },
     Tornado: {
         iconName: "weather-hail",
         gradient: ["#89F7FE", "#66A6FF"],
         title: "Atmosphere",
-        subtitle: "Let's listen 'Psycho' whose SoYeon",
+        subtitle: "Psycho",
         songId: "https://www.melon.com/song/detail.htm?songId=33650732"
     },
     Clear: {
         iconName: "weather-sunny",
         gradient: ["#fc4a1a", "#f7b733"],
         title: "Sunny",
-        subtitle: "Let's listen 'BEAM BEAM' whose SoYeon",
+        subtitle: "BEAM BEAM",
         songId: "https://www.melon.com/song/detail.htm?songId=33650729"
     },
     Clouds: {
         iconName: "weather-cloudy",
         gradient: ["#3a6073", "#3a7bd5"],
         title: "Cloudy",
-        subtitle: "Let's listen 'Weather' whose SoYeon",
+        subtitle: "Weather",
         songId: "https://www.melon.com/song/detail.htm?songId=33650730"
     }
 };
@@ -132,10 +136,26 @@ export default function Weather({ temp, condition }) {
             </View>
             <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
                 <Text style={styles.title}>{weatherOptions[condition].title}</Text>
-                <Text style={styles.subtitle}>{weatherOptions[condition].subtitle}</Text>
+                <Text style={styles.subtitle}>{recommend}{weatherOptions[condition].subtitle}{sy}</Text>
                 <Text style={styles.subtitle} onPress={() => Linking.openURL(weatherOptions[condition].songId)}>{goTo}</Text>
             </View>
+            {/* <SafeAreaView style={styles.container}>
+                <YouTube
+                    videoId="MqzX9JAZ08U"
+                    apiKey="AIzaSyBBICrYr9zhJ2wBdZGhDdK6vpHt6GiUDL0"
+                    play={true}
+                    fullscreen={false}
+                    loop={false}
+                    onReady={(e) => console.log('onReady')}
+                    onChangeState={(e) => console.log('onChangeState:', e.state)}
+                    onChangeQuality={(e) => console.log('onChangeQuality: ', e.quality)}
+                    onError={(e) => console.log('onError: ', e.error)}
+                    style={{ width: '100%', height: 300 }}
+                />
+            </SafeAreaView> */}
         </LinearGradient>
+
+
     );
 
 }
