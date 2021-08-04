@@ -4,9 +4,8 @@ import propTypes from "prop-types";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Linking } from "react-native";
-import YouTube from 'react-native-youtube';
 
-const goTo = "Go to listen >> ";
+const goTo = "Try to listen >> ";
 const recommend = "Condition recommends this music: \n";
 const sy = " - Soyeon\n"
 
@@ -139,20 +138,6 @@ export default function Weather({ temp, condition }) {
                 <Text style={styles.subtitle}>{recommend}{weatherOptions[condition].subtitle}{sy}</Text>
                 <Text style={styles.subtitle} onPress={() => Linking.openURL(weatherOptions[condition].songId)}>{goTo}</Text>
             </View>
-            {/* <SafeAreaView style={styles.container}>
-                <YouTube
-                    videoId="MqzX9JAZ08U"
-                    apiKey="AIzaSyBBICrYr9zhJ2wBdZGhDdK6vpHt6GiUDL0"
-                    play={true}
-                    fullscreen={false}
-                    loop={false}
-                    onReady={(e) => console.log('onReady')}
-                    onChangeState={(e) => console.log('onChangeState:', e.state)}
-                    onChangeQuality={(e) => console.log('onChangeQuality: ', e.quality)}
-                    onError={(e) => console.log('onError: ', e.error)}
-                    style={{ width: '100%', height: 300 }}
-                />
-            </SafeAreaView> */}
         </LinearGradient>
 
 
